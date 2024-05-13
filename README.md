@@ -1,4 +1,4 @@
-# Microsoft Edge Points Miner
+# MSEdgePointsMiner
 Mines microsoft edge rewards points
 
 Made from python.
