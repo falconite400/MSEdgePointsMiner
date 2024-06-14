@@ -4,6 +4,7 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.edge.service import Service
 from selenium.webdriver.common.by import By
 import sys
+import os
 
 # setup
 def wait_for(sec=2):
@@ -11,7 +12,8 @@ def wait_for(sec=2):
 
 search_list = [x for x in range(34)]
 
-driver = webdriver.Edge(service=Service('C:\\Users\\%username%\\code\\msepointsminer\\msedgedriver.exe'))
+current_dir = os.getcwd()
+driver = webdriver.Edge(service=Service(os.path.join(current_dir, 'msedgedriver.exe')))
 url_base = 'http://www.bing.com/search?q='
 wait_for(5)
 
