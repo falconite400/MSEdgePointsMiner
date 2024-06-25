@@ -34,7 +34,7 @@ version_index = version_data.find(">")
 version_data = version_data[version_index:]
 
 # find the numbers in the text of the header
-msedge_current_version_data = re.findall("\d+", version_data)
+msedge_current_version_data = re.findall("\\d+", version_data)
 msedge_current_version = ""
 
 # add dots to version (first four numbers found in the text)
