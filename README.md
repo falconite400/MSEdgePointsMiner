@@ -12,7 +12,7 @@ You need to download the MS Edge webdriver from https://developer.microsoft.com/
 You also need to run:
 ```
 python -m venv venv
-venv\Scripts\activate
+.\venv\Scripts\activate
 pip install selenium
 ```
 
