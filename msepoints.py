@@ -63,7 +63,7 @@ else:
 
 # download msedge web driver if it hasn't already been
 files = os.listdir()
-if "msedgedriver.exe" not in files:
+if "msedgedriver.exe" in files:
     pass
 else:
     os_architecture = platform.architecture()[0]
