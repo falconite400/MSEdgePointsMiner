@@ -70,7 +70,7 @@ else:
     if os_architecture == "64bit":
         subprocess.run('curl -O https://msedgedriver.azureedge.net/' + msedge_current_version + '/edgedriver_win64.zip')
         subprocess.run('powershell -command "expand-archive edgedriver_win64.zip"')
-        subprocess.run('powershell -command "move .\\edgedriver_win64\\msedge_driver.exe .\\ "')
+        subprocess.run('powershell -command "move .\\edgedriver_win64\\msedgedriver.exe .\\ "')
     elif os_architecture == "32bit":
         subprocess.run('curl -O https://msedgedriver.azureedge.net/' + msedge_current_version + '/edgedriver_win32.zip')
         subprocess.run('powershell -command "expand-archive edgedriver_win32.zip"')
