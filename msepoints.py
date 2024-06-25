@@ -4,7 +4,6 @@ from selenium.webdriver.edge.service import Service
 import sys
 import os
 import subprocess
-from urllib.request import urlopen
 import re
 import platform
 
