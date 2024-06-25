@@ -52,7 +52,6 @@ msedge_local_version = subprocess.check_output(command).decode("utf-8")
 # command returns \r at the end of the output
 for i in range(2):
     msedge_local_version = msedge_local_version[:len(msedge_local_version)-1]
-    print(msedge_local_version.encode("utf-8"))
 
 msedge_local_version = str(msedge_local_version)
 
@@ -71,11 +70,11 @@ else:
     if os_architecture == "64bit":
         subprocess.run('curl -O https://msedgedriver.azureedge.net/' + msedge_current_version + '/edgedriver_win64.zip')
         subprocess.run('powershell -command "expand-archive edgedriver_win64.zip"')
-        subprocess.run('powershell -command "move .\edgedriver_win64.zip\msedge_driver.exe .\ "')
+        subprocess.run('powershell -command "move .\\edgedriver_win64.zip\\msedge_driver.exe .\\ "')
     elif os_architecture == "32bit":
         subprocess.run('curl -O https://msedgedriver.azureedge.net/' + msedge_current_version + '/edgedriver_win32.zip')
         subprocess.run('powershell -command "expand-archive edgedriver_win32.zip"')
-        subprocess.run('powershell -command "move .\edgedriver_win32.zip\msedgedriver.exe .\ "')
+        subprocess.run('powershell -command "move .\\edgedriver_win32.zip\\msedgedriver.exe .\\ "')
 
 # search and mine points
 
