@@ -13,8 +13,34 @@ import sys
 def wait_for(sec=2):
     time.sleep(sec)
 
-# check if msedge is up to date
+def install_msedge_driver():
+    # downloads and installs msedgedriver.exe (32 or 64 bit)
+    os_architecture = platform.architecture()[0]
+    files = os.listdir()
+    # delete webdriver
+    if "msedgedriver.exe" in files:
+        subprocess.run("rm -Force .\\msedgedriver.exe")
 
+    if os_architecture == "64bit":
+        # delete webdriver directory
+        if "edgedriver_win64" in files:
+            subprocess.run('powershell -command "rm -Force -Recurse .\\edgedriver_win64"')
+        subprocess.run('curl -O https://msedgedriver.azureedge.net/' + msedge_current_version + '/edgedriver_win64.zip')
+        subprocess.run('powershell -command "expand-archive edgedriver_win64.zip; rm -Force edgedriver_win64.zip"')
+        subprocess.run('powershell -command "move .\\edgedriver_win64\\msedgedriver.exe .\\ "')
+    elif os_architecture == "32bit":
+        # delete webdriver directory
+        if "edgedriver_win32" in files:
+            subprocess.run('powershell -command "rm -Force -Recurse .\\edgedriver_win32"')
+        subprocess.run('curl -O https://msedgedriver.azureedge.net/' + msedge_current_version + '/edgedriver_win32.zip')
+        subprocess.run('powershell -command "expand-archive edgedriver_win32.zip; rm -Force edgedriver_win32.zip"')
+        subprocess.run('powershell -command "move .\\edgedriver_win32\\msedgedriver.exe .\\ "')
+
+
+    print("Done installing msedgedriver.exe")
+
+
+# check if msedge is up to date
 
 url = "https://learn.microsoft.com/en-us/deployedge/microsoft-edge-relnote-stable-channel"
 page = urlopen(url)
@@ -61,20 +87,30 @@ else:
     print("Please update Microsoft Edge first. Quitting")
     sys.exit(1)
 
-# download msedge web driver if it hasn't already been
+
+
+# check msedgedriver version and download msedge web driver if it isn't there
+
 files = os.listdir()
-if "msedgedriver.exe" in files:
-    pass
+if ("msedgedriver.exe" in files):
+    # get numbers from msedgedriver.exe --version
+    msedgedriver_version_numbers = re.findall("\\d+", subprocess.check_output("msedgedriver.exe --version").decode("utf-8"))
+    msedgedriver_version = ""         
+    msedgedriver_version += msedgedriver_version_numbers[i] + "."
+    print(msedgedriver_version)
+    print('ok')
+
+    # from some testing it seems only the first version number matters (e.g. 126 or 127)
+    if msedgedriver_version_numbers[0] == msedge_current_version[:3]:
+        print("msedgedriver.exe is up to date. Continuing")
+    else:
+        print("msedgedriver.exe is not up to date. Installing...")
+        install_msedge_driver()
 else:
-    os_architecture = platform.architecture()[0]
-    if os_architecture == "64bit":
-        subprocess.run('curl -O https://msedgedriver.azureedge.net/' + msedge_current_version + '/edgedriver_win64.zip')
-        subprocess.run('powershell -command "expand-archive edgedriver_win64.zip"')
-        subprocess.run('powershell -command "move .\\edgedriver_win64\\msedgedriver.exe .\\ "')
-    elif os_architecture == "32bit":
-        subprocess.run('curl -O https://msedgedriver.azureedge.net/' + msedge_current_version + '/edgedriver_win32.zip')
-        subprocess.run('powershell -command "expand-archive edgedriver_win32.zip"')
-        subprocess.run('powershell -command "move .\\edgedriver_win32\\msedgedriver.exe .\\ "')
+    print("msedgedriver.exe has not been installed yet. Installing...")
+    install_msedge_driver()
+    
+    
 
 # search and mine points
 
